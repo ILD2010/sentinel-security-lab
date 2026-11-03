@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}Service Manager | Sentinel{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/services.css') }}">
+{% endblock %}
+
+{% block page_title %}Service Manager{% endblock %}
+
+{% block content %}
+
+<section class="services-overview">
+
+    <h2>Linux Service Manager</h2>
+
+    <p>
+        Monitor system services running on the Sentinel host.
+    </p>
+
+    <div class="service-stats">
+
+        <div class="service-stat-card">
+            <h3>Total Services</h3>
+            <p>{{ stats.total }}</p>
+        </div>
+
+        <div class="service-stat-card">
+            <h3>Active Services</h3>
+            <p>{{ stats.running }}</p>
+        </div>
+
+        <div class="service-stat-card">
+            <h3>Inactive Services</h3>
+            <p>{{ stats.stopped }}</p>
+        </div>
+
+        <div class="service-stat-card">
+            <h3>Failed Services</h3>
+            <p>{{ stats.failed }}</p>
+        </div>
+
+    </div>
+
+    <div class="service-controls">
+
+        <input
+            type="text"
+            id="service-search"
+            placeholder="Search services..."
+            aria-label="Search services"
+        >
+
+        <select id="service-filter" aria-label="Filter services by status">
+
+            <option value="all">All Services</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+            <option value="failed">Failed</option>
+
+        </select>
+
+    </div>
+
+    <div class="service-table-wrapper">
+
+        <table class="service-table">
+
+            <thead>
+                <tr>
+                    <th>Service</th>
+                    <th>Status</th>
+                    <th>Substate</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for service in services %}
+
+                <tr class="service-row" data-status="{{ service.active }}">
+                    <td>{{ service.name }}</td>
+
+                    <td>
+                        <span class="service-status {{ service.active }}">
+                            {{ service.active }}
+                        </span>
+                    </td>
+
+                    <td>{{ service.substate }}</td>
+
+                    <td>{{ service.description }}</td>
+                </tr>
+
+                {% else %}
+
+                <tr>
+                    <td colspan="4">
+                        No service information available.
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{{ url_for('static', filename='js/services.js') }}"></script>
+
+{% endblock %}

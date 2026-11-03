@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Sentinel Security Lab{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+
+    {% block styles %}{% endblock %}
+</head>
+
+<body>
+
+    <div class="app-layout">
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+
+            <div class="sidebar-header">
+                <h2>Sentinel</h2>
+                <span>Security Lab</span>
+            </div>
+
+            <nav class="sidebar-nav" aria-label="Main navigation">
+
+                <a href="{{ url_for('main.index') }}">
+                    <span class="nav-icon">⌂</span>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+
+                <p class="nav-section">SYSTEM</p>
+
+                <a href="{{ url_for('system.health') }}">
+                    <span class="nav-icon">◈</span>
+                    <span class="nav-text">System Health</span>
+                </a>
+
+                <a href="{{ url_for('system.services') }}">
+                    <span class="nav-icon">▣</span>
+                    <span class="nav-text">Service Manager</span>
+                </a>
+
+                <a href="{{ url_for('system.logs') }}">
+                    <span class="nav-icon">≡</span>
+                    <span class="nav-text">Activity Logs</span>
+                </a>
+
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>Sentinel v0.1</p>
+            </div>
+
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-wrapper">
+
+            <header class="topbar">
+
+                <button
+                    id="sidebar-toggle"
+                    type="button"
+                    aria-label="Toggle navigation"
+                    aria-controls="sidebar"
+                    aria-expanded="true">
+                    ☰
+                </button>
+
+                <div class="topbar-title">
+                    <h1>{% block page_title %}Dashboard{% endblock %}</h1>
+                </div>
+
+                <div class="topbar-status">
+                    <span class="status-dot"></span>
+                    <span>Development</span>
+                </div>
+
+            </header>
+
+            <main class="page-content">
+
+                {% block content %}{% endblock %}
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
+
+    {% block scripts %}{% endblock %}
+
+</body>
+</html>

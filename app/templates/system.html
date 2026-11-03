@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}System Health | Sentinel{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/system.css') }}">
+{% endblock %}
+
+{% block page_title %}System Health{% endblock %}
+
+{% block content %}
+
+<section class="system-overview">
+
+    <h2>System Overview</h2>
+
+    <p>
+        Monitor the health and resource usage of the machine
+        hosting Sentinel Security Lab.
+    </p>
+
+    <div class="system-grid">
+
+        <div class="metric-card">
+            <h3>CPU Usage</h3>
+            <p>{{ system.cpu_usage }}%</p>
+            <span>{{ system.cpu_cores }} Logical CPUs</span>
+        </div>
+
+        <div class="metric-card">
+            <h3>Memory Usage</h3>
+            <p>{{ system.memory_percent }}%</p>
+            <span>
+                {{ system.memory_used }} GB /
+                {{ system.memory_total }} GB
+            </span>
+        </div>
+
+        <div class="metric-card">
+            <h3>Storage Usage</h3>
+            <p>{{ system.disk_percent }}%</p>
+            <span>
+                {{ system.disk_used }} GB /
+                {{ system.disk_total }} GB
+            </span>
+        </div>
+
+        <div class="metric-card">
+            <h3>System Uptime</h3>
+            <p>{{ system.uptime_hours }} Hours</p>
+            <span>Since last boot</span>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="system-details">
+
+    <h2>Host Information</h2>
+
+    <p><strong>Hostname:</strong> {{ system.hostname }}</p>
+
+    <p><strong>Operating System:</strong> {{ system.operating_system }}</p>
+
+    <p><strong>Kernel:</strong> {{ system.kernel }}</p>
+
+</section>
+
+{% endblock %}
